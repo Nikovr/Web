@@ -27,6 +27,11 @@
                 text-align: center;
                 margin-top: 10px;
             }
+
+            .error-message {
+                color: #fd0101;
+            }
+
         </style>
     </head>
 
@@ -34,12 +39,12 @@
         function validateForm() {
             let x = document.forms["form"]["X"].value;
             let parsed = parseFloat(x);
-            if (isNaN(parsed)) {
-                alert("Ошибка: X должен быть числом");
+            if (isNaN(parsed) || x.includes(",")) {
+                document.getElementById("x-error").innerText = "Ошибка: X должен быть числом";
                 return false;
             }
-            else if (parsed < -3 || parsed > 3) {
-                alert("Ошибка: X должен быть числом от -3 до 3");
+            else if (parsed <= -3 || parsed >= 3) {
+                document.getElementById("x-error").innerText = "Ошибка: X должен быть числом от -3 до 3 исключая";
                 return false;
             }
         }
@@ -58,6 +63,7 @@
                 <div id="element">
                     <div>Введите X</div>
                     <div><input type="text" name="X"></div>
+                    <div id="x-error" class="error-message">
                 </div>
 
                 <div id="element">
@@ -87,7 +93,7 @@
                         </select>
                     </div>
                 </div>
-                <div id= "element"><input type="submit"></div>
+                <div id="element"><input type="submit"></div>
             </form>
         </div>
     </body>
